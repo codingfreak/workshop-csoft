@@ -7,6 +7,19 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Search for Weatherdata</h1>
+
+    <div class="input-group mb-3" id="search" data-url="@ViewData["ApiBaseUrl"]Weather/%%/temperature">
+        <input id="input-city" type="text" class="form-control" placeholder="Name der Stadt" aria-label="Stadt" aria-describedby="button-addon2">
+        <div class="input-group-append">
+            <button id="btn-search" class="btn btn-outline-secondary" type="button" id="button-addon2">Suchen</button>
+        </div>
+    </div>
+    
+    <p id="result"></p>
 </div>
+
+@section Scripts
+{
+    <script src="~/js/home.index.js"></script>
+}
