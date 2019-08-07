@@ -1,0 +1,15 @@
+# Create resource group:
+az group create --name rg-comma --location westeurope --tags purpose=workshop customer=commasoft
+az lock create --lock-type CanNotDelete --name NoDelete --resource-group rg-comma
+
+# Create service plan and web app:
+az appservice plan create -g rg-comma -n asp-comma --sku FREE --location westeurope
+az webapp create -g rg-comma -n web-dd-commatest -p asp-comma
+az webapp config appsettings set -g rg-comma -n web-dd-commatest --settings ASPNETCORE_ENVIRONMENT=Production
+az ad app create --display-name "CommaSoft Sample App" --reply-urls https://web-dd-commatest.azurewebsites.net/signin-oidc --oauth2-allow-implicit-flow
+az ad app list --query "[?displayName=='CommaSoft Sample App'].appId" -o tsv
+
+# Delete resources
+az ad app delete [APP-ID]
+az lock delete --name NoDelete --resource-group rg-comma 
+az group delete --name rg-comma -y
