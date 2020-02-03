@@ -1,6 +1,7 @@
 ﻿namespace commasoft.Workshop.Ui.Simulator
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Net.Sockets;
     using System.Text;
@@ -80,6 +81,10 @@
                         {
                             TokenSource.Cancel();
                         }
+                    }).ContinueWith(
+                    t =>
+                    {
+                        Console.WriteLine("Program exited.");
                     });
                 await RunSimulatorAsync(TokenSource.Token).ConfigureAwait(false);
             }
