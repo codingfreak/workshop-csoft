@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ui", "Ui", "{23990507-B4BC-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ui.Simulator", "Ui\Ui.Simulator\Ui.Simulator.csproj", "{636A1F44-5F6D-40E0-9158-903BB7FA8D13}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{1830E9F5-6109-42D3-81E0-5360AAE6DFA5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Azure.StatFunction", "Azure\Azure.StatFunction\Azure.StatFunction.csproj", "{5A80E509-EA32-4E54-809D-C5B2F74794C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +21,17 @@ Global
 		{636A1F44-5F6D-40E0-9158-903BB7FA8D13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{636A1F44-5F6D-40E0-9158-903BB7FA8D13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{636A1F44-5F6D-40E0-9158-903BB7FA8D13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A80E509-EA32-4E54-809D-C5B2F74794C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A80E509-EA32-4E54-809D-C5B2F74794C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A80E509-EA32-4E54-809D-C5B2F74794C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A80E509-EA32-4E54-809D-C5B2F74794C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{636A1F44-5F6D-40E0-9158-903BB7FA8D13} = {23990507-B4BC-4831-AFA2-D09E9324074C}
+		{5A80E509-EA32-4E54-809D-C5B2F74794C8} = {1830E9F5-6109-42D3-81E0-5360AAE6DFA5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D9DBDC58-594B-41EC-8BB1-808F40961F85}
