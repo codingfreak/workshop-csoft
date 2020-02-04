@@ -11,9 +11,13 @@ namespace commasoft.Workshop.Azure.StatFunction
     using Microsoft.Azure.WebJobs.Extensions.Http;
     using Microsoft.Extensions.Logging;
     using Microsoft.WindowsAzure.Storage;
+    using Microsoft.WindowsAzure.Storage.Blob;
 
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// Defines the structure of the storage file in Azure BLOB storage.
+    /// </summary>
     public class Stats
     {
         #region properties
@@ -29,13 +33,13 @@ namespace commasoft.Workshop.Azure.StatFunction
     {
         #region methods
 
+        /// <summary>
+        /// Retrieves the currently stored statistics from BLOB storage.
+        /// </summary>
+        /// <returns>The stored stats or newly generated ones.</returns>
         public static async Task<Stats> GetCurrentStatsAsync()
         {
-            var account = CloudStorageAccount.Parse(
-                "DefaultEndpointsProtocol=https;AccountName=stoddcstest;AccountKey=61HduhogKHdWWXmQzs2Po1biEvN8HDbUehprlvdoGGawqwT+C95lpfsb7vTwQdhS3mzhCP1tZvk/CaNwhVBCQw==;EndpointSuffix=core.windows.net");
-            var serviceClient = account.CreateCloudBlobClient();
-            var container = serviceClient.GetContainerReference("stats");
-            var blob = container.GetBlockBlobReference("stats.json");
+            var blob = GetBlobReference();
             var exists = await blob.ExistsAsync();
             if (!exists)
             {
@@ -50,6 +54,12 @@ namespace commasoft.Workshop.Azure.StatFunction
             return result;
         }
 
+        /// <summary>
+        /// Entry point of the Azure Function.
+        /// </summary>
+        /// <param name="req">The HTTP request message.</param>
+        /// <param name="log">The logger to use.</param>
+        /// <returns>THe HTTP respone message.</returns>
         [FunctionName("StatFunction")]
         public static async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]
@@ -60,14 +70,17 @@ namespace commasoft.Workshop.Azure.StatFunction
             dynamic dataArray = await req.Content.ReadAsAsync<object>();
             if (dataArray.Count == 0)
             {
+                // Return OK here so that ouput-testing in Stream Analytics works.
                 log.LogInformation("No data!");
                 return req.CreateResponse(HttpStatusCode.OK);
             }
+            // we've got data
             try
             {
                 var stats = await GetCurrentStatsAsync();
                 for (var i = 0; i < dataArray.Count; i++)
                 {
+                    // We have to use explicit types here because of the dynamic input.
                     string deviceId = dataArray[i].DeviceId;
                     int temperature = dataArray[i].Temperature;
                     int humidity = dataArray[i].Humidity;
@@ -99,14 +112,27 @@ namespace commasoft.Workshop.Azure.StatFunction
             }
         }
 
-        public static async Task SetCurrentStatsAsync(Stats stats)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private static CloudBlockBlob GetBlobReference()
         {
-            var account = CloudStorageAccount.Parse(
-                "DefaultEndpointsProtocol=https;AccountName=stoddcstest;AccountKey=61HduhogKHdWWXmQzs2Po1biEvN8HDbUehprlvdoGGawqwT+C95lpfsb7vTwQdhS3mzhCP1tZvk/CaNwhVBCQw==;EndpointSuffix=core.windows.net");
+            // TODO 
+            var account = CloudStorageAccount.Parse("CONNECTION_STRING");
             var serviceClient = account.CreateCloudBlobClient();
             var container = serviceClient.GetContainerReference("stats");
-            var blob = container.GetBlockBlobReference("stats.json");
-            var exists = await blob.ExistsAsync();
+            return container.GetBlockBlobReference("stats.json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stats"></param>
+        /// <returns></returns>
+        public static async Task SetCurrentStatsAsync(Stats stats)
+        {
+            var blob = GetBlobReference();
             var json = JsonConvert.SerializeObject(stats);
             await blob.UploadTextAsync(json);
         }
