@@ -26,6 +26,9 @@
         /// </summary>
         private static string _deviceKey;
 
+        /// <summary>
+        /// The amount of messages after which a new error should be generated.
+        /// </summary>
         private static int _errorRate;
 
         /// <summary>
@@ -43,6 +46,9 @@
         /// </summary>
         private static string _machineKey;
 
+        /// <summary>
+        /// The counter of messages sent.
+        /// </summary>
         private static int _messageCount;
 
         /// <summary>
@@ -73,7 +79,7 @@
             Console.WriteLine("Starting simulator.");
             try
             {
-                Task.Run(
+                var task = Task.Run(
                     () =>
                     {
                         var key = Console.ReadKey();
@@ -97,9 +103,9 @@
         }
 
         /// <summary>
+        /// Central logic loop for the simulator.
         /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
+        /// <param name="token">The cancellation token to abort the endless loop.</param>
         private static async Task RunSimulatorAsync(CancellationToken token = default)
         {
             if (!TryCreateDeviceClient())
@@ -123,7 +129,7 @@
                         Humidity = random.Next(0, 100)
                     };
                     _messageCount++;
-                    if (_messageCount % _errorRate == 0)
+                    if (_errorRate > 0 && _messageCount % _errorRate == 0)
                     {
                         // TODO more sophisticated!
                         nextMessage.Temperature = 80;
