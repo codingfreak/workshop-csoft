@@ -21,12 +21,19 @@ namespace commasoft.Workshop.Azure.StatFunction
     public class Stats
     {
         #region properties
-
-        public Dictionary<string, int> DeviceErrors { get; set; } = new Dictionary<string, int>();
-
+        
+        public List<DeviceErrorEntry> DeviceErrors { get; set; }
+        
         public int MessageCount { get; set; }
 
         #endregion
+    }
+
+    public class DeviceErrorEntry
+    {
+        public string DeviceId { get; set; }
+
+        public int ErrorsCount { get; set; }
     }
 
     public static class StatFunction
@@ -49,7 +56,7 @@ namespace commasoft.Workshop.Azure.StatFunction
             var result = JsonConvert.DeserializeObject<Stats>(json);
             if (result.DeviceErrors == null)
             {
-                result.DeviceErrors = new Dictionary<string, int>();
+                result.DeviceErrors = new List<DeviceErrorEntry>();
             }
             return result;
         }
@@ -89,16 +96,14 @@ namespace commasoft.Workshop.Azure.StatFunction
                     log.LogInformation(deviceId);
                     stats.MessageCount++;
                     var isError = temperature < -50 || temperature > 59 || humidity < 0 || humidity > 100 || windDirection < 0 || windDirection > 359 || windSpeed < 0 || windSpeed > 70;
-                    if (!stats.DeviceErrors.ContainsKey(deviceId))
+                    if (!stats.DeviceErrors.Any(d => d.DeviceId == deviceId))
                     {
-                        stats.DeviceErrors.Add(deviceId, isError ? 1 : 0);
+                        stats.DeviceErrors.Add(new DeviceErrorEntry { DeviceId = deviceId, ErrorsCount = isError ? 1 : 0 });
                         log.LogInformation("Added device.");
                     }
                     else
                     {
-                        var errors = stats.DeviceErrors[deviceId];
-                        errors += isError ? 1 : 0;
-                        stats.DeviceErrors[deviceId] = errors;
+                        var errors = stats.DeviceErrors.First(d => d.DeviceId == deviceId).ErrorsCount += isError ? 1 : 0;
                         log.LogInformation("Updated device.");
                     }
                 }
