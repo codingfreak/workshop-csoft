@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "IotHubs_ioh_dd_comma_test_connectionString": {
+      "value": null
+    },
+    "IotHubs_ioh_dd_comma_test_containerName": {
+      "value": null
+    },
+    "LogicAppStorageConnectionName": {
+      "value": null
+    },
+    "LogicAppOffice365ConnectionName": {
+      "value": null
+    },
+    "FunctionAppName": {
+      "value": null
+    },
+    "LogicAppName": {
+      "value": null
+    },
+    "FunctionAppServicePlanName": {
+      "value": null
+    },
+    "IotHubName": {
+      "value": null
+    },
+    "ApplicationInsightsName": {
+      "value": null
+    },
+    "StorageAccountName": {
+      "value": null
+    },
+    "ArchiveStorageAccountName": {
+      "value": null
+    },
+    "StreamAnalyticsJobName": {
+      "value": null
+    },
+    "smartdetectoralertrules_failure_anomalies___ai_dd_cs_test_name": {
+      "value": null
+    },
+    "actiongroups_application_20insights_20smart_20detection_externalid": {
+      "value": null
+    }
+  }
+}

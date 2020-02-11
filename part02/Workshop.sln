@@ -20,10 +20,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic.DataAccess.TableStorage", "Logic\Logic.DataAccess.TableStorage\Logic.DataAccess.TableStorage.csproj", "{84CAB20C-4FAC-46A7-88F8-DC838FA116CC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{A1877CC9-3DB3-47CB-89CD-EB79942DBC7B}"
-	ProjectSection(SolutionItems) = preProject
-		Infrastructure\cleanup.ps1 = Infrastructure\cleanup.ps1
-		Infrastructure\default.ps1 = Infrastructure\default.ps1
-	EndProjectSection
+EndProject
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "Infratructure.Template", "Infrastructure\Infratructure.Template\Infratructure.Template.deployproj", "{C6D6A965-82E8-418D-B4E4-9292A5DA2271}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +45,10 @@ Global
 		{84CAB20C-4FAC-46A7-88F8-DC838FA116CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84CAB20C-4FAC-46A7-88F8-DC838FA116CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84CAB20C-4FAC-46A7-88F8-DC838FA116CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6D6A965-82E8-418D-B4E4-9292A5DA2271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D6A965-82E8-418D-B4E4-9292A5DA2271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D6A965-82E8-418D-B4E4-9292A5DA2271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D6A965-82E8-418D-B4E4-9292A5DA2271}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +58,7 @@ Global
 		{5A80E509-EA32-4E54-809D-C5B2F74794C8} = {1830E9F5-6109-42D3-81E0-5360AAE6DFA5}
 		{BB70528F-FC5E-4ECA-94C3-275CB448DABC} = {35510008-3C09-4B0A-AA59-CC1EEC3E34F0}
 		{84CAB20C-4FAC-46A7-88F8-DC838FA116CC} = {827FDC91-C955-47B7-B450-F9646712CBDB}
+		{C6D6A965-82E8-418D-B4E4-9292A5DA2271} = {A1877CC9-3DB3-47CB-89CD-EB79942DBC7B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D9DBDC58-594B-41EC-8BB1-808F40961F85}
